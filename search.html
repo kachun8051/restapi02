@@ -17,8 +17,25 @@
             //alert(request.readyState);
             if (request.readyState==4){
                 if (request.status==200){
-                    var response = request.responseText;
-                    document.getElementById("showit").innerHTML = response;
+                    var resp = request.responseText;
+                    document.getElementById("showit").innerHTML = resp;
+                    var arr = JSON.parse(resp);
+                    var myhtml = "";
+                    for (var i = 0, len = arr.length; i < len; ++i) {
+                        var rec = arr[i];
+                        var mylist = "<ul>";
+                        mylist += "<li>" + rec.bookingId + "</li>";
+                        mylist += "<li>" + rec.staffStudentId + "</li>";
+                        mylist += "<li>" + rec.staffStudentName + "</li>";
+                        mylist += "<li>" + rec.campusId + "</li>";
+                        mylist += "<li>" + rec.scheduleDate + "</li>";
+
+                        mylist += "<li>" + rec.timeSlotId + "</li>";
+                        mylist += "<li>" + rec.bookingDateTime + "</li>"; 
+
+                        myhtml += mylist;
+                    }
+                    document.getElementById("showit2").innerHTML = myhtml;
                 }
             }
         }
@@ -27,6 +44,7 @@
     <body>
         Stid: <input type="text" id="stid" />
         <button onclick="search()">SEARCH</button>
-        <br/><span id="showit"></span>
+        <br/><div id="showit"></div>
+        <br/><div id="showit2"></div>
     </body>        
 </html>
