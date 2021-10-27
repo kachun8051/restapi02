@@ -1,0 +1,32 @@
+<html>
+    
+    <script>
+        var request = new XMLHttpRequest();
+        function search() {
+            var stid = document.getElementById("stid").value;
+            document.getElementById("showit").innerText = stid;
+            var url = "http://localhost/pte/index.php/vaccine/student/" + stid; 
+            alert(stid);
+            request.open("GET", url, true);
+            //request.onreadystatechange = updatePage;
+            request.onreadystatechange=updatePage;
+            request.send(null);
+        }
+        function updatePage() {
+            //document.getElementById("showit").innerText = request.readyState;
+            //alert(request.readyState);
+            if (request.readyState==4){
+                if (request.status==200){
+                    var response = request.responseText;
+                    document.getElementById("showit").innerHTML = response;
+                }
+            }
+        }
+    </script>
+    
+    <body>
+        Stid: <input type="text" id="stid" />
+        <button onclick="search()">SEARCH</button>
+        <br/><span id="showit"></span>
+    </body>        
+</html>
